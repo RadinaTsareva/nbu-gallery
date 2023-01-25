@@ -37,7 +37,7 @@ class AlbumController extends BaseController
     public function create(CreateAlbumRequest $request): RedirectResponse
     {
         $file = $request->file('cover_image');
-        $random_name = 'random name';
+        $random_name = $request->file('cover_image')->getClientOriginalName();
         $destinationPath = 'albums/';
         $extension = $file->getClientOriginalExtension();
         $filename = $random_name . '_cover.' . $extension;
