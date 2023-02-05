@@ -1,28 +1,29 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
+<div class="container">
 
-        <div class="starter-template">
-
-            <div class="row">
-                @foreach($albums as $album)
-                    <div class="col-lg-3">
-                        <div class="thumbnail">
-                            <img alt="{{$album->name}}" src="/albums/{{$album->cover_image}}" style="max-width: 100%">
-                            <div class="caption">
-                                <h3>{{$album->name}}</h3>
-                                <p>{{$album->description}}</p>
-                                <p>{{count($album->Photos)}} image(s).</p>
-                                <p>Created date: {{ date("d F Y",strtotime($album->created_at)) }}
-                                    at {{date("g:ha",strtotime($album->created_at)) }}</p>
-                                <p><a href="{{route('get-album',['id'=>$album->id])}}"
-                                      class="btn btn-big btn-default">Show Gallery</a></p>
-                            </div>
-                        </div>
+    <div class="starter-template">
+        <div class="row align-items-center">
+            @foreach($albums as $album)
+            <div class="col">
+                <div class="thumbnail" style="max-width:200px">
+                    <img class="img-fluid rounded mx-auto d-block" alt="{{$album->name}}"
+                        src="/albums/{{$album->cover_image}}" />
+                    <div class="caption">
+                        <p class="h4">Name: {{ $album->name }} ({{ count($album->Photos) }})</p>
+                        <p class="h5">Description: {{$album->description}}</p>
+                        <p class="h5">Created: {{ date("d F Y",strtotime($album->created_at)) }}
+                            at {{ date("h:ia",strtotime($album->created_at)) }}</p>
+                        @if(Auth::id() != $album->user->id)
+                        <p class="h6">Creator: {{ $album->user->name }}</p>
+                        @endif
+                        <a href="{{route('get-album',['id'=>$album->id])}}" class="btn btn-big btn-info">Show
+                            Gallery</a>
                     </div>
-                @endforeach
+                </div>
             </div>
-
+            @endforeach
         </div>
     </div>
+</div>
 @endsection

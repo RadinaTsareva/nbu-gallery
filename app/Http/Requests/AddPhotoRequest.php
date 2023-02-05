@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property mixed $name
  * @property mixed $cover_image
  */
-class CreateAlbumRequest extends FormRequest
+class AddPhotoRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -20,7 +20,7 @@ class CreateAlbumRequest extends FormRequest
         return [
             'description' => 'required|string|min:10',
             'name' => 'required|string|min:2',
-            'cover_image' => 'required|image|mimes:jpg,png'
+            'image' => 'required|image|mimes:jpg,png'
         ];
     }
 }
