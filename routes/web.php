@@ -25,7 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/create-album', [AlbumController::class, 'create'])->name('create-album');
     Route::post('/delete-album/{id}', [AlbumController::class, 'delete'])->name('delete-album');
     Route::get('/album/{id}', [AlbumController::class, 'getAlbum'])->name('get-album');
-    Route::get('/add-image/{id}', [AlbumController::class, 'addPhoto'])->name('add-photo');
+    Route::get('/add-image/{id}', [AlbumController::class, 'getPhotoForm'])->name('show-photo-form');
+    Route::post('/add-image/{id}', [AlbumController::class, 'addPhoto'])->name('add-photo');
 });
 Auth::routes();
 
