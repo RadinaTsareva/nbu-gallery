@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateAlbumRequest;
 use App\Models\Album;
+use App\Models\Photo;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -11,6 +12,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
 class AlbumController extends BaseController
@@ -60,7 +62,19 @@ class AlbumController extends BaseController
         return redirect()->route('list-of-albums');
     }
 
-    public function addPhoto()
+    public function addPhoto($id, Request $request): RedirectResponse
     {
+        dd($request);
+        $photo = Photo::create(array(
+            'album_id' => $id,
+            'description' => $request->get('description'),
+            'image' => $request->get('image'),
+        ));
+    }
+
+    public function getPhotoForm($id)
+    {
+        $album = Album::find($id);
+        return view('albums.create-photo', ['id'=>$id]);
     }
 }
